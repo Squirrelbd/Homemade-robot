@@ -1,0 +1,97 @@
+
+// Task after the app open...  Check if bluetooth device is enable or not... 
+  @Override
+    protected void onStart() {
+        super.onStart();
+        MyServices.log("OnStart Called.");
+        if (bluetoothAdapter.isEnabled()) {
+            MyServices.log("Bluetooth is enabled.");
+            bluetoothList();
+        } else {
+            Toast.makeText(this, "!!!Please turn on your bluetooth device!!!", Toast.LENGTH_LONG).show();
+        }
+    }
+//Getharing Bluetooth device list 
+    private void bluetoothList() {
+        //
+        list = new ArrayList();
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                list.add(device.getName() + "\n" + device.getAddress());
+                MyServices.log("MAC::" + device.getAddress());
+            }
+        }
+// Android code for button inisilizing
+private void btn_ini() {
+        forward = (ImageButton) findViewById(R.id.imgbtn_forward);
+        backward = (ImageButton) findViewById(R.id.imgbtn_back);
+        right = (ImageButton) findViewById(R.id.imgbtn_right);
+        left = (ImageButton) findViewById(R.id.imgbtn_left);
+        auto = (Button) findViewById(R.id.btn_auto);
+        stop = (Button) findViewById(R.id.btn_stop);
+        send = (Button) findViewById(R.id.btn_send);
+        temperature= (Button) findViewById(R.id.btn_temp);
+        light_on= (Button) findViewById(R.id.btn_light_on);
+        light_off= (Button) findViewById(R.id.btn_light_off);
+        night_mode= (Button) findViewById(R.id.btn_night_mode);
+        play= (Button) findViewById(R.id.btn_play);
+        et_send = (EditText) findViewById(R.id.et_input);
+        tv_temperature = (TextView) findViewById(R.id.tv_temp);
+        forward.setOnClickListener(this);
+        backward.setOnClickListener(this);
+        right.setOnClickListener(this);
+        left.setOnClickListener(this);
+        auto.setOnClickListener(this);
+        stop.setOnClickListener(this);
+        send.setOnClickListener(this);
+        temperature.setOnClickListener(this);
+        light_off.setOnClickListener(this);
+        night_mode.setOnClickListener(this);
+        play.setOnClickListener(this);
+        light_on.setOnClickListener(this);
+        et_send.setOnClickListener(this);
+    }
+ // Action for all button in app 
+ @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.imgbtn_forward:
+                connectedThread.write(MyServices.FORWARD_CMD.toString());
+                break;
+            case R.id.imgbtn_back:
+                connectedThread.write(MyServices.BACKWARD_CMD.toString());
+                break;
+            case R.id.imgbtn_right:
+                connectedThread.write(MyServices.RIGHT_CMD.toString());
+                break;
+            case R.id.imgbtn_left:
+                connectedThread.write(MyServices.LEFT_CMD.toString());
+                break;
+            case R.id.btn_auto:
+                connectedThread.write(MyServices.AUTO_CMD.toString());
+                break;
+            case R.id.btn_stop:
+                connectedThread.write(MyServices.STOP_CMD.toString());
+                break;
+            case R.id.btn_light_on:
+                connectedThread.write(MyServices.LIGHT_ON_CMD.toString());
+                break;
+            case R.id.btn_light_off:
+                connectedThread.write(MyServices.LIGHT_OFF_CMD.toString());
+                break;
+            case R.id.btn_play:
+                connectedThread.write(MyServices.PLAY_CMD.toString());
+                break;
+            case R.id.btn_night_mode:
+                connectedThread.write(MyServices.NIGHT_MODE_CMD.toString());
+                break;
+            case R.id.btn_send:
+                String val = et_send.getText().toString().trim();
+                connectedThread.write(val);
+                break;
+            case R.id.btn_temp:
+                connectedThread.write(MyServices.TEMPERATURE_CMD.toString());
+                break;
+        }
+    }
