@@ -1,0 +1,28 @@
+void setup() {
+  // initialize serial communication:
+  Serial.begin(115200);
+  Serial1.begin(115200);
+  Serial2.begin(115200);
+  // vw_setup(2000);
+  // vw_set_tx_pin(7); // pin 7 for transmit
+  // vw_rx_start();
+  head.attach(11);
+  leftHand.attach(8);
+  finger.attach(10);
+  rightHand.attach(9);  // attaches the servo on pin 9 to the servo object
+  rightHand.write(25);                  // sets the servo position according to the scaled value
+  finger.write(20);
+  leftHand.write(135);
+lcd.begin(16, 2);
+  pinMode(MotorPin1, OUTPUT);
+  pinMode(MotorPin2, OUTPUT);
+  pinMode(MotorPin3, OUTPUT);
+  pinMode(MotorPin4, OUTPUT);
+  pinMode(nightLight, OUTPUT);
+  pinMode(tempPin, INPUT);
+  digitalWrite(nightLight, LOW);
+    lcd.print("Hello! I'm HOMEY");
+  myservo.attach(6);
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+}
