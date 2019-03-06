@@ -1,0 +1,13 @@
+
+  // if it's an T show temp to android and display:
+    else if (incomingByte == 'T') {
+      val = analogRead(tempPin);
+      float mv = ( val / 1024.0) * 5000;
+      float cel = mv / 10;
+      Serial.print("*");
+      Serial.print(cel);
+      Serial.print("#");
+      lcd.println("Room Temperature is:");
+      lcd.setCursor(0, 1);
+      lcd.print(cel);  
+    }
