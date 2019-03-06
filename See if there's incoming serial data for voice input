@@ -1,0 +1,7 @@
+//VOICE Input
+  if (Serial.available() > 0 ) {
+        lcd.clear();
+    // read the oldest byte in the serial buffer:
+    incomingByte = Serial.read();
+}
+
